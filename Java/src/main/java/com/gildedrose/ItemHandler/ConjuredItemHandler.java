@@ -2,19 +2,14 @@ package java.com.gildedrose.ItemHandler;
 
 import com.gildedrose.Item;
 
-public class ConjuredItemHandler implements ItemHandler {
+public class ConjuredItemHandler extends QualityHandler {
     @Override
     public void handleItem(Item item) {
         item.sellIn -= 1;
-        if (item.quality >= 2) {
-            item.quality -= 2;
-        } else {
-            item.quality = 0;
-        }
-        if (item.sellIn < 0 && item.quality >= 2) {
-            item.quality -= 2;
-        } else if (item.quality > 0) {
-            item.quality = 0;
+        decreaseQuality(item, 2);
+
+        if (item.sellIn < 0) {
+            decreaseQuality(item, 2);
         }
     }
 }
